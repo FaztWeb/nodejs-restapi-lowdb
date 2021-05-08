@@ -1,35 +1,27 @@
-const { getConnection } = require("../database");
-const { v4 } = require("uuid");
+import { getConnection } from "../database";
+import { v4 } from "uuid";
 
-const getTasks = (req, res) => {
-  const tasks = getConnection()
-    .get("tasks")
-    .value();
+export const getTasks = (req, res) => {
+  const tasks = getConnection().get("tasks").value();
   res.json(tasks);
 };
 
-const createTask = (req, res) => {
+export const createTask = (req, res) => {
   const newTask = {
     id: v4(),
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
   };
-  getConnection()
-    .get("tasks")
-    .push(newTask)
-    .write();
+  getConnection().get("tasks").push(newTask).write();
   res.json(newTask);
 };
 
-const getTask = (req, res) => {
-  const task = getConnection()
-    .get("tasks")
-    .find({ id: req.params.id })
-    .value();
+export const getTask = (req, res) => {
+  const task = getConnection().get("tasks").find({ id: req.params.id }).value();
   res.json(task);
 };
 
-const updateTask = async (req, res) => {
+export const updateTask = async (req, res) => {
   const result = await getConnection()
     .get("tasks")
     .find({ id: req.params.id })
@@ -38,18 +30,10 @@ const updateTask = async (req, res) => {
   res.json(result);
 };
 
-const deleteTask = async (req, res) => {
+export const deleteTask = async (req, res) => {
   const result = await getConnection()
     .get("tasks")
     .remove({ id: req.params.id })
     .write();
   res.json(result);
-};
-
-module.exports = {
-  getTasks,
-  getTask,
-  createTask,
-  updateTask,
-  deleteTask
 };
