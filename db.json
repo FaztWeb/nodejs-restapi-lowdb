@@ -1,3 +1,29 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "54f14e7e-c974-4047-9667-cf2951d7e6d1",
+      "name": "mi primera tarea",
+      "description": "asi debio ser :)"
+    },
+    {
+      "id": "6f800420-772a-4dbd-a185-c94c73237af3",
+      "name": "my first task",
+      "description": "I have to do something"
+    },
+    {
+      "id": "4ce7150f-2a86-43d1-bff3-5868c5e14b43",
+      "name": "my first task",
+      "description": "I have to do something"
+    },
+    {
+      "id": "07119cfe-39c8-4b71-9d06-e6d5e54a4641",
+      "name": "my first task",
+      "description": "I have to do something"
+    },
+    {
+      "id": "5d909036-e812-4f7a-854a-5b67bf6689a8",
+      "name": "my first task",
+      "description": "I have to do something"
+    }
+  ]
 }
