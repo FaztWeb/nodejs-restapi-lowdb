@@ -12,5 +12,14 @@ Content-Type: application/json
   "description": "using Nodejs and express"
 }
 
+### update
+PUT http://localhost:3000/tasks/34d775aa-b0de-4f7c-a9c1-58af1a29e9fe
+Content-Type: application/json
+
+{
+  "name": "hello",
+  "description": "world"
+}
+
 ### get total tasks
 {{api}}/count

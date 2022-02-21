@@ -1,12 +1,12 @@
-import { getConnection } from "../database";
+import { getConnection } from "../database.js";
 import { v4 } from "uuid";
 
 export const getTasks = (req, res) => {
-  const tasks = getConnection().get("tasks").value();
+  const tasks = getConnection().data.tasks;
   res.json(tasks);
 };
 
-export const createTask = (req, res) => {
+export const createTask = async (req, res) => {
   const newTask = {
     id: v4(),
     name: req.body.name,
@@ -14,7 +14,9 @@ export const createTask = (req, res) => {
   };
 
   try {
-    getConnection().get("tasks").push(newTask).write();
+    const db = getConnection();
+    db.data.tasks.push(newTask);
+    await db.write();
 
     res.json(newTask);
   } catch (error) {
@@ -23,47 +25,47 @@ export const createTask = (req, res) => {
 };
 
 export const getTask = (req, res) => {
-  const task = getConnection().get("tasks").find({ id: req.params.id }).value();
-
-  if (!task) res.sendStatus(404);
-
-  res.json(task);
+  const taskFound = getConnection().data.tasks.find(
+    (t) => t.id === req.params.id
+  );
+  if (!taskFound) res.sendStatus(404);
+  res.json(taskFound);
 };
 
 export const updateTask = async (req, res) => {
-  try {
-    const taskFound = await getConnection()
-      .get("tasks")
-      .find({ id: req.params.id })
-      .value();
+  const { name, description } = req.body;
 
+  try {
+    const db = getConnection();
+    const taskFound = db.data.tasks.find((t) => t.id === req.params.id);
     if (!taskFound) return res.sendStatus(404);
 
-    const result = await getConnection()
-      .get("tasks")
-      .find({ id: req.params.id })
-      .assign(req.body)
-      .write();
+    taskFound.name = name;
+    taskFound.description = description;
 
-    res.json(result);
+    db.data.tasks.map((t) => (t.id === req.params.id ? taskFound : t));
+
+    await db.write();
+
+    res.json(taskFound);
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).send(error.message);
   }
 };
 
 export const deleteTask = async (req, res) => {
-  const result = await getConnection()
-    .get("tasks")
-    .remove({ id: req.params.id })
-    .write();
+  const db = getConnection();
+  const taskFound = db.data.tasks.find((t) => t.id === req.params.id);
+  if (!taskFound) res.sendStatus(404);
 
-  if (result.length === 0) return res.sendStatus(404);
+  const newTasks = db.data.tasks.filter((t) => t.id !== req.params.id);
+  db.data.tasks = newTasks;
+  await db.write();
 
-  res.json(result);
+  return res.json(taskFound);
 };
 
 export const count = async (req, res) => {
-  const totalTasks = await getConnection().get("tasks").value();
-
-  res.json(totalTasks.length);
+  const totalTasks = getConnection().data.tasks.length;
+  res.json(totalTasks);
 };

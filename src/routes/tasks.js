@@ -8,7 +8,7 @@ import {
   updateTask,
   deleteTask,
   count,
-} from "../controllers/tasks.controller";
+} from "../controllers/tasks.controller.js";
 
 /**
  * @swagger
@@ -157,11 +157,11 @@ router.post("/tasks", createTask);
  *            $ref: '#/components/schemas/Task'
  *    responses:
  *      200:
- *        description: the task was updated
+ *        description: the taks was successfully created
  *        content:
- *          application:/json:
- *          schema:
- *            $ref: '#/components/schemas/Task'
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Task'
  *      404:
  *        description: the task was not found
  *      500:

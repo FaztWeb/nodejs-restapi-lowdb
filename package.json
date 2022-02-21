@@ -4,27 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.js --ignore db.json --exec babel-node",
-    "build": "babel src -d dist"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js --ignore db.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "lowdb": "^1.0.0",
-    "morgan": "^1.9.1",
-    "swagger-jsdoc": "6.0.1",
-    "swagger-ui-express": "^4.1.6",
-    "uuid": "^7.0.1"
+    "express": "^4.17.3",
+    "lowdb": "^3.0.0",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "6.1.0",
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
-    "@babel/node": "^7.13.13",
-    "@babel/plugin-transform-runtime": "^7.13.15",
-    "@babel/preset-env": "^7.14.1",
-    "nodemon": "^2.0.2"
-  }
+    "nodemon": "^2.0.15"
+  },
+  "type": "module"
 }

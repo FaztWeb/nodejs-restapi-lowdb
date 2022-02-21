@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import taskRoutes from "./routes/tasks";
+import taskRoutes from "./routes/tasks.js";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 
@@ -35,4 +35,4 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 // Routes
 app.use(taskRoutes);
 
-export default app;
+export { app };
