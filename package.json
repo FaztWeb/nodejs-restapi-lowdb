@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dirnamejz": "^1.0.0",
     "express": "^4.17.3",
     "lowdb": "^3.0.0",
     "morgan": "^1.10.0",
